@@ -95,16 +95,21 @@
   </div>
 
   <script>
-    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyih1dbTC2XaA5FbZuM7hABqyEtPFSOYdPl5VMbv6pusMLJmtU8iBEyTev0DVJHDlYITg/exec";
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyih1dbTC2XaA5FbZuM7hABqyEtPFSOYdPl5VMbv6pusMLJmtU8iBEyTev0DVJHDlYITg/exec";
 
-    var params = new URLSearchParams(window.location.search);
-    var chofer = params.get("c") || "desconocido";
+  var params = new URLSearchParams(window.location.search);
+  var chofer = params.get("c") || "desconocido";
 
-    if (chofer !== "desconocido") {
-      var tag = document.getElementById("choferDisplay");
-      tag.textContent = "Atendido por: " + chofer;
-      tag.style.display = "inline-block";
-    }
+  if (chofer !== "desconocido") {
+    var tag = document.getElementById("choferDisplay");
+    tag.textContent = "Atendido por: " + chofer;
+    tag.style.display = "inline-block";
+  }
+
+  // Registrar via imagen invisible — evita CORS completamente
+  var img = new Image();
+  img.src = SCRIPT_URL + "?c=" + encodeURIComponent(chofer);
+</script>
 
     fetch(SCRIPT_URL + "?c=" + encodeURIComponent(chofer), {
       method: "GET",
