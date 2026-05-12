@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gracias por tu visita</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      padding: 48px 36px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+    }
+    .stars { font-size: 52px; margin-bottom: 20px; }
+    h2 { color: #1A4A8A; font-size: 24px; margin-bottom: 10px; }
+    p { color: #666; font-size: 15px; line-height: 1.6; margin-bottom: 32px; }
+    .btn {
+      display: block;
+      background: #1A4A8A;
+      color: white;
+      text-decoration: none;
+      padding: 18px 24px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #2E6DB4; }
+    .chofer-name {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="stars">⭐⭐⭐⭐⭐</div>
+  <h2>¡Gracias por elegirnos!</h2>
+  <p>Tu opinión nos ayuda a seguir mejorando.<br>Solo toma 30 segundos.</p>
+  <a class="btn" id="reviewBtn" href="https://g.page/r/CbceeiBsa_EGEBM/review">
+    Dejar mi reseña en Google
+  </a>
+  <p class="chofer-name" id="choferDisplay"></p>
+</div>
+
+<script>
+  // ── CONFIGURACIÓN ──────────────────────────────────────────
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFpZ0-rlESTs7C7vb7-Q2paKf5CkICEFJUF3VtxRG0XTB10YYz9fYc1E44cX4c4XbIGg/exec";
+  var REVIEW_URL = "https://g.page/r/CbceeiBsa_EGEBM/review";
+  // ───────────────────────────────────────────────────────────
+
+  // Leer el nombre del chofer desde la URL (?c=sergi)
+  var params = new URLSearchParams(window.location.search);
+  var chofer = params.get("c") || "desconocido";
+
+  // Mostrar nombre del chofer en la página (opcional)
+  if (chofer !== "desconocido") {
+    document.getElementById("choferDisplay").textContent = "Atendido por: " + chofer;
+  }
+
+  // Registrar el escaneo en Google Sheets via el Apps Script
+  // Usamos no-cors para evitar errores de CORS — el registro igual ocurre
+  fetch(SCRIPT_URL + "?c=" + encodeURIComponent(chofer), {
+    method: "GET",
+    mode: "no-cors"
+  }).catch(function() {
+    // Si falla el registro, igual mostramos la página normalmente
+    console.log("Registro no disponible");
+  });
+</script>
+</body>
+</html>
