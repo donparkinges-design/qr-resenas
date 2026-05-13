@@ -27,8 +27,11 @@
     <span class="chofer-tag">Atendido por: Sergi</span>
   </div>
   <script>
-  var img = new Image();
-  img.src = "https://script.google.com/macros/s/AKfycbxNdKcRV-jR9rec-qGdxKotr5B3G1uCifcmp0n5eGlHfJo0_s6uWTor-FSxp6gbMc3ZyA/exec" + Date.now();
+    // Envío invisible a Google Forms — registra "sergi" automáticamente
+    var form = document.createElement("img");
+    form.src = "https://docs.google.com/forms/d/e/1FAIpQLSd3OhK49kxcPasOdBMXum2vcg4udvI5ngA7idEBrv4hv1KUgA/formResponse?entry.891147494=sergi&submit=Submit";
+    form.style.display = "none";
+    document.body.appendChild(form);
   </script>
 </body>
 </html>
